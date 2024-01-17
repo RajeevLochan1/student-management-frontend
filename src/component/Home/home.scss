@@ -1,0 +1,62 @@
+.smallModel {
+    .MuiDialog-paper {
+      max-width: 500px;
+      width: 100%;
+    }
+  
+    .MuiDialogContent-root {
+      padding: 30px 25px;
+      font-family: "Roboto", sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 32px;
+      color: rgba(0, 0, 0, 0.85);
+      max-width: 600px;
+      text-align: center;
+    }
+  
+    .MuiDialogActions-root {
+      position: sticky;
+      bottom: 0;
+      background: #fff;
+      left: 0;
+      right: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      box-shadow: inset 0px 1px 0px #f0f0f0;
+  
+      .border-button {
+        padding: 4px 15px;
+        height: 32px;
+        background: #ffffff !important;
+        border: 1px solid #096dd9;
+        box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.016);
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 22px;
+        font-family: "Roboto", sans-serif;
+        text-align: center;
+        color: #096dd9 !important;
+      }
+  
+      .button {
+        padding: 4px 15px;
+        height: 32px;
+        // background: #096dd9 !important;
+        background: #d32f2f !important;
+        border: 1px solid #d32f2f;
+        box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.016);
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 22px;
+        font-family: "Roboto", sans-serif;
+        text-align: center;
+        color: #ffffff !important;
+      }
+    }
+  }

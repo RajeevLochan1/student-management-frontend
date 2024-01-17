@@ -50,6 +50,11 @@ const AddStudent = () => {
       });
   };
 
+  const isValidName = (name) => {
+    const nameRegex = /^[a-zA-Z]+$/;
+    return nameRegex.test(name);
+  };
+
   const isValidEmail = (email) => {
     // Simple email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -64,6 +69,12 @@ const AddStudent = () => {
       setValidation({
         ...validation,
         [field]: { error: true, message: "This field is required" },
+      });
+    } else if (field === "name" && !isValidName(value.trim())) {
+      // Show error message if the name is not valid
+      setValidation({
+        ...validation,
+        [field]: { error: true, message: "Enter a valid name" },
       });
     } else if (field === "email" && !isValidEmail(value.trim())) {
       // Show error message if the email is not valid
@@ -114,7 +125,7 @@ const AddStudent = () => {
               <p style={{ color: "red" }}>{validation.email.message}</p>
             )}
           </div>
-          <div style={{display:"flex", gap:"10px"}}>
+          <div style={{ display: "flex", gap: "10px" }}>
             <Button variant="contained" color="primary" onClick={handleSubmit}>
               Save
             </Button>

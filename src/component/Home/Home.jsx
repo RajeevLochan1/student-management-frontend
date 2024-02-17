@@ -9,8 +9,15 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Box, Button } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+} from "@mui/material";
 import { toast } from "react-toastify";
+import "./home.scss";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,6 +42,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const Home = () => {
   const [data, setData] = useState([]);
 
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
+  const [deleteId, setDeleteId] = useState("");
+
   useEffect(() => {
     // tableData();
     axios
@@ -55,7 +65,8 @@ const Home = () => {
       .delete("http://localhost:4000/delete/" + id)
       .then((res) => {
         setData(data.filter((item) => item._id !== id));
-        toast.success("Student deleted successfully!");
+        // toast.success("Student deleted successfully!");
+        toast.success(res.data.message);
       })
       .catch((err) => {
         console.log(err);
@@ -107,7 +118,10 @@ const Home = () => {
                       <Button
                         variant="contained"
                         color="error"
-                        onClick={() => handleDelete(item._id)}
+                        onClick={() => {
+                          setDeleteId(item._id);
+                          setShowDeletePopup(true);
+                        }}
                       >
                         Delete
                       </Button>
@@ -118,6 +132,37 @@ const Home = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        {showDeletePopup && (
+          <Dialog open={showDeletePopup} className="smallModel">
+            <div>
+              <DialogContent>
+                Do you want to delete ?
+              </DialogContent>
+              <DialogActions>
+                <Button
+                  className="border-button"
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => {
+                    setShowDeletePopup(false);
+                  }}
+                >
+                  No
+                </Button>
+                <Button
+                  className="button"
+                  variant="contained"
+                  onClick={()=>{
+                    handleDelete(deleteId);
+                    setShowDeletePopup(false)
+                  }}
+                >
+                  Yes
+                </Button>
+              </DialogActions>
+            </div>
+          </Dialog>
+        )}
       </div>
     </div>
   );

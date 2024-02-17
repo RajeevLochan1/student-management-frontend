@@ -47,7 +47,8 @@ const UpdateList = () => {
       .put("http://localhost:4000/updateStudent/" + id, values)
       .then((res) => {
         console.log(res);
-        toast.success("Student updated successfully!");
+        // toast.success("Student updated successfully!");
+        toast.success(res.data.message);
         navigate("/");
       })
       .catch((err) => {

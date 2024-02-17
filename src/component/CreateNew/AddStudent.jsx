@@ -19,7 +19,7 @@ const AddStudent = () => {
     email: { error: false, message: "Enter your email" },
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Validation checks
     const checkValidation = {
       name: {
@@ -39,15 +39,33 @@ const AddStudent = () => {
       return;
     }
 
-    axios
-      .post("http://localhost:4000/newStudent", values)
-      .then((res) => {
-        toast.success("Student added successfully!");
+    try {
+      let { data, status } = await axios.post(
+        "http://localhost:4000/newStudent",
+        values
+      );
+      if (status) {
+        toast.success(data.message);
         navigate("/");
-      })
-      .catch((err) => {
-        toast.error("Failed to add student");
-      });
+      }
+    } catch (error) {
+      toast.error("Failed to add student");
+    }
+
+    // axios
+    //   .post("http://localhost:4000/newStudent", values)
+    //   .then((res) => {
+    //     toast.success(res.data.message);
+    //     navigate("/");
+    //   })
+    //   .catch((err) => {
+    //     toast.error("Failed to add student");
+    //   });
+  };
+
+  const isValidName = (name) => {
+    const nameRegex = /^[a-zA-Z]+$/;
+    return nameRegex.test(name);
   };
 
   const isValidEmail = (email) => {
@@ -64,6 +82,12 @@ const AddStudent = () => {
       setValidation({
         ...validation,
         [field]: { error: true, message: "This field is required" },
+      });
+    } else if (field === "name" && !isValidName(value.trim())) {
+      // Show error message if the name is not valid
+      setValidation({
+        ...validation,
+        [field]: { error: true, message: "Enter a valid name" },
       });
     } else if (field === "email" && !isValidEmail(value.trim())) {
       // Show error message if the email is not valid
@@ -114,7 +138,7 @@ const AddStudent = () => {
               <p style={{ color: "red" }}>{validation.email.message}</p>
             )}
           </div>
-          <div style={{display:"flex", gap:"10px"}}>
+          <div style={{ display: "flex", gap: "10px" }}>
             <Button variant="contained" color="primary" onClick={handleSubmit}>
               Save
             </Button>

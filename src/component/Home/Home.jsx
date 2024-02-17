@@ -65,7 +65,8 @@ const Home = () => {
       .delete("http://localhost:4000/delete/" + id)
       .then((res) => {
         setData(data.filter((item) => item._id !== id));
-        toast.success("Student deleted successfully!");
+        // toast.success("Student deleted successfully!");
+        toast.success(res.data.message);
       })
       .catch((err) => {
         console.log(err);

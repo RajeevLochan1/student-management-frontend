@@ -19,7 +19,7 @@ const AddStudent = () => {
     email: { error: false, message: "Enter your email" },
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Validation checks
     const checkValidation = {
       name: {
@@ -39,15 +39,28 @@ const AddStudent = () => {
       return;
     }
 
-    axios
-      .post("http://localhost:4000/newStudent", values)
-      .then((res) => {
-        toast.success("Student added successfully!");
+    try {
+      let { data, status } = await axios.post(
+        "http://localhost:4000/newStudent",
+        values
+      );
+      if (status) {
+        toast.success(data.message);
         navigate("/");
-      })
-      .catch((err) => {
-        toast.error("Failed to add student");
-      });
+      }
+    } catch (error) {
+      toast.error("Failed to add student");
+    }
+
+    // axios
+    //   .post("http://localhost:4000/newStudent", values)
+    //   .then((res) => {
+    //     toast.success(res.data.message);
+    //     navigate("/");
+    //   })
+    //   .catch((err) => {
+    //     toast.error("Failed to add student");
+    //   });
   };
 
   const isValidName = (name) => {

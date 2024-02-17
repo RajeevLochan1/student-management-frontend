@@ -19,6 +19,11 @@ const UpdateList = () => {
     email: { error: false, message: "Enter your email" },
   });
 
+  const isValidName = (name) => {
+    const nameRegex = /^[a-zA-Z]+$/;
+    return nameRegex.test(name);
+  };
+
   const isValidEmail = (email) => {
     // Simple email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -65,6 +70,12 @@ const UpdateList = () => {
       setValidation({
         ...validation,
         [field]: { error: true, message: "This field is required" },
+      });
+    } else if (field === "name" && !isValidName(value.trim())) {
+      // Show error message if the name is not valid
+      setValidation({
+        ...validation,
+        [field]: { error: true, message: "Enter a valid name" },
       });
     } else if (field === "email" && !isValidEmail(value.trim())) {
       // Show error message if the email is not valid

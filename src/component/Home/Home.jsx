@@ -17,7 +17,7 @@ import {
   DialogContent,
 } from "@mui/material";
 import { toast } from "react-toastify";
-import "./home.scss";
+import "./home.scss"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
